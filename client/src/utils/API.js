@@ -10,13 +10,18 @@ export default {
     return axios.get("https://jsonplaceholder.typicode.com/posts/" + id);
   },
   // Gets the author with the given id
-  getAuthor: function() {
+  getAuthors: function() {
     return axios.get("https://jsonplaceholder.typicode.com/users/");
   },
 
   // Gets comments
   getComments: function() {
     return axios.get("https://jsonplaceholder.typicode.com/comments");
+  },
+
+  // Gets photos
+  getPhotos: function() {
+    return axios.get("https://jsonplaceholder.typicode.com/photos");
   },
 
   // Saves a post to the database

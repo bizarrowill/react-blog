@@ -27,7 +27,7 @@ class Preview extends Component {
               <h1>{this.state.post.title}</h1>
             </Jumbotron>
             <h3>
-              by: {this.state.post.userId} *need to add author name + link
+              by: <Link to="/author">{this.state.post.userId}</Link>
             </h3>
           </Col>
         </Row>

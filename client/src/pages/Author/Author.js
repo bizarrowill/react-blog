@@ -6,19 +6,27 @@ import API from "../../utils/API";
 
 class Author extends Component {
   state = {
-    user: {}
+    authors: []
   };
-  // When this component mounts, grab the post with the id of this.props.match.params.id
-  // e.g. localhost:3000/posts/599dcb67f0f16317844583fc
+  // When this component mounts, grab the user with the id of this.props.match.params.id
+  // e.g. localhost:3000/author/1
   componentDidMount() {
-    API.getPost(this.props.match.params.id)
-      .then(res => this.setState({ user: res.data }))
+    API.getAuthors(this.props.match.params.userId)
+      .then(res => this.setState({ authors: res.data }))
       .catch(err => console.log(err));
   }
 
   render() {
     return (
       <Container fluid>
+        <Row>
+          <Jumbotron>
+            <h1>{this.state.authors.name}</h1>
+          </Jumbotron>
+        </Row>
+        <Row>
+          <Col size="sm-12">{this.state.authors.name}</Col>
+        </Row>
         <Row>
           <Col size="md-2">
             <Link to="/">← Back to Home</Link>

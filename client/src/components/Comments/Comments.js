@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Container } from "../../components/Grid";
+import { Col, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import { List, ListItem } from "../../components/List";
 

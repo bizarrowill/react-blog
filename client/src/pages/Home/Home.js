@@ -9,16 +9,24 @@ class Home extends Component {
   state = {
     posts: [],
     title: "",
-    body: ""
+    body: "",
+    thumbnail: ""
   };
 
   componentDidMount() {
     this.loadPosts();
+    this.loadPhotos();
   }
 
   loadPosts = () => {
     API.getPosts()
       .then(res => this.setState({ posts: res.data, title: "", body: "" }))
+      .catch(err => console.log(err));
+  };
+
+  loadPhotos = () => {
+    API.getPhotos()
+      .then(res => this.setState({ photos: res.data, thumbnail: "" }))
       .catch(err => console.log(err));
   };
 
@@ -43,7 +51,7 @@ class Home extends Component {
                   ))}
                 </List>
               ) : (
-                <h3>No Results to Display</h3>
+                <h3>Posts Loading or no new posts</h3>
               )}
             </Col>
           </Col>
