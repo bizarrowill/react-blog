@@ -25,7 +25,7 @@ export default {
   },
 
   // Saves a post to the database
-  addPost: function(addPost) {
-    return axios.post("https://jsonplaceholder.typicode.com/posts/", addPost);
+  newPost: function(newPost) {
+    return axios.post("https://jsonplaceholder.typicode.com/posts/", newPost);
   }
 };

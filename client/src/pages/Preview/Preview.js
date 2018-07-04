@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
 import Comments from "../../components/Comments";
-// import Author from "../../components/Author";
 import API from "../../utils/API";
 
 class Preview extends Component {
@@ -40,11 +39,32 @@ class Preview extends Component {
           </Col>
         </Row>
         <Comments />
+        <div>
+          <h1>Add Comment</h1>
+          <form onSubmit={this.onSubmit}>
+            <br />
+            <div>
+              <label>Comment: </label>
+              <br />
+              <input
+                type="text"
+                name="body"
+                onChange={this.onChange}
+                value={this.state.body}
+              />
+              <br />
+            </div>
+            <br />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <br />
         <Row>
           <Col size="md-2">
             <Link to="/">← Back to Home</Link>
           </Col>
         </Row>
+        <br />
       </Container>
     );
   }

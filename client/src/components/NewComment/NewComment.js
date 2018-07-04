@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
-import API from "../../utils/API";
+import { Container } from "../../components/Grid";
+// import API from "../../utils/API";
 
-class NewPost extends Component {
+class NewComment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
       body: ""
     };
 
@@ -22,35 +20,20 @@ class NewPost extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const newPost = {
-      title: this.state.title,
+    const comment = {
       body: this.state.body
     };
-
-    API.newPost(newPost)
-      .then(res => this.setState({ post: res.data }))
-      .catch(err => console.log(err));
   }
 
   render() {
     return (
       <Container fluid>
         <div>
-          <h1>Add Post</h1>
+          <h1>Add Comment</h1>
           <form onSubmit={this.onSubmit}>
-            <div>
-              <label>Title: </label>
-              <br />
-              <input
-                type="text"
-                name="title"
-                onChange={this.onChange}
-                value={this.state.title}
-              />
-            </div>
             <br />
             <div>
-              <label>Body: </label>
+              <label>Comment: </label>
               <br />
               <input
                 type="text"
@@ -64,15 +47,9 @@ class NewPost extends Component {
             <button type="submit">Submit</button>
           </form>
         </div>
-        <br />
-        <Row>
-          <Col size="md-2">
-            <Link to="/">← Back to Home</Link>
-          </Col>
-        </Row>
       </Container>
     );
   }
 }
 
-export default NewPost;
+export default NewComment;

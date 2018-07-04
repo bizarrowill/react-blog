@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col, Row } from "../../components/Grid";
 import API from "../../utils/API";
 
-class Author extends Component {
+export default class Author extends Component {
   state = {
     author: {}
   };
@@ -23,5 +23,3 @@ class Author extends Component {
     </Row>;
   }
 }
-
-export default Author;

@@ -10,7 +10,7 @@ class Home extends Component {
     posts: [],
     title: "",
     body: "",
-    thumbnail: ""
+    thumbnail: null
   };
 
   componentDidMount() {
@@ -26,7 +26,7 @@ class Home extends Component {
 
   loadPhotos = () => {
     API.getPhotos()
-      .then(res => this.setState({ photos: res.data, thumbnail: "" }))
+      .then(res => this.setState({ photos: res.data, thumbnail: null }))
       .catch(err => console.log(err));
   };
 
