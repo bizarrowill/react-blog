@@ -13,7 +13,7 @@ const App = () => (
       <Nav />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/author" component={Author} />
+        <Route exact path="/author/:id" component={Author} />
         <Route exact path="/newpost" component={NewPost} />
         <Route exact path="/posts/:id" component={Preview} />
         <Route component={NoMatch} />

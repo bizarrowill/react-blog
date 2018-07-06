@@ -8,9 +8,7 @@ import { List, ListItem } from "../../components/List";
 class Home extends Component {
   state = {
     posts: [],
-    title: "",
-    body: "",
-    thumbnail: null
+    photos: []
   };
 
   componentDidMount() {
@@ -20,17 +18,21 @@ class Home extends Component {
 
   loadPosts = () => {
     API.getPosts()
-      .then(res => this.setState({ posts: res.data, title: "", body: "" }))
+      .then(res => this.setState({ posts: res.data }))
       .catch(err => console.log(err));
   };
 
   loadPhotos = () => {
     API.getPhotos()
-      .then(res => this.setState({ photos: res.data, thumbnail: null }))
+      .then(res => {
+        this.setState({ photos: res.data });
+      })
+
       .catch(err => console.log(err));
   };
 
   render() {
+    console.log(this.state);
     return (
       <Container fluid>
         <Row>
@@ -41,14 +43,18 @@ class Home extends Component {
             <Col size="sm-12">
               {this.state.posts.length ? (
                 <List>
-                  {this.state.posts.map(post => (
-                    <ListItem key={post.id}>
-                      <strong>{post.title.slice(0, 15)}</strong>
-                      <br />
-                      {post.body.slice(0, 30)}
-                      post <Link to={"/posts/" + post.id}>Read More</Link>
-                    </ListItem>
-                  ))}
+                  {this.state.posts.map((post, index) => {
+                    const photo = this.state.photos[index];
+                    return (
+                      <ListItem key={post.id}>
+                        {photo && <img src={photo.thumbnailUrl} alt="" />}
+                        <strong>{post.title.slice(0, 15)}</strong>
+                        <br />
+                        {post.body.slice(0, 30)}
+                        post <Link to={"/posts/" + post.id}>Read More</Link>
+                      </ListItem>
+                    );
+                  })}
                 </List>
               ) : (
                 <h3>Posts Loading or no new posts</h3>

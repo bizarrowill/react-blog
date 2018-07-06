@@ -7,17 +7,24 @@ import API from "../../utils/API";
 
 class Preview extends Component {
   state = {
-    post: {}
+    post: {},
+    author: null
   };
   // When this component mounts, grab the post with the id of this.props.match.params.id
   // e.g. localhost:3000/posts/1
   componentDidMount() {
     API.getPost(this.props.match.params.id)
-      .then(res => this.setState({ post: res.data }))
+      .then(post => {
+        console.log(post);
+        API.getAuthor(post.data.userId).then(author => {
+          this.setState({ post: post.data, author: author.data.name });
+        });
+      })
       .catch(err => console.log(err));
   }
 
   render() {
+    console.log("preview state:", this.state);
     return (
       <Container fluid>
         <Row>
@@ -26,7 +33,10 @@ class Preview extends Component {
               <h1>{this.state.post.title}</h1>
             </Jumbotron>
             <h3>
-              by: <Link to="/author">{this.state.post.userId}</Link>
+              by:{" "}
+              <Link to={"/author/" + this.state.post.userId}>
+                {this.state.author}
+              </Link>
             </h3>
           </Col>
         </Row>

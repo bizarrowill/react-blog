@@ -1,35 +1,34 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { compose, withProps } from "recompose";
 import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
 // import { Map } from "../../components/Map";
 import API from "../../utils/API";
 import { List, ListItem } from "../../components/List";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
 
 class Author extends Component {
   state = {
-    authors: [],
-    name: "",
-    username: "",
-    email: "",
-    address: ""
+    author: {}
   };
   // When this component mounts, grab the user with the id of this.props.match.params.id
   // e.g. localhost:3000/author/1
 
   componentDidMount() {
-    this.loadAuthors();
+    this.loadAuthor();
   }
 
-  loadAuthors = () => {
-    API.getAuthors()
+  loadAuthor = () => {
+    console.log("author id:", this.props.match.params.id);
+    API.getAuthor(this.props.match.params.id)
       .then(res =>
         this.setState({
-          authors: res.data,
-          name: "",
-          username: "",
-          email: "",
-          address: ""
+          author: res.data
         })
       )
       .catch(err => console.log(err));
@@ -44,37 +43,47 @@ class Author extends Component {
           </Jumbotron>
         </Row>
         <Col size="sm-12">
-          {this.state.authors.length ? (
+          {Object.keys(this.state.author).length > 0 ? (
             <List>
-              {this.state.authors.slice(0, 1).map(author => (
-                <ListItem key={author.id}>
-                  <strong>{author.name}</strong>
-                  <br />
-                  {author.username}
-                  <br />
-                  {author.email}
-                  <br />
-                  {author.address.street}
-                  <br />
-                  {author.address.suite}
-                  <br />
-                  {author.address.city} |
-                  {author.address.zipcode} | LAT:
-                  {author.address.geo.lat} | LONG:
-                  {author.address.geo.lng}
-                  <br />
-                  {author.phone}
-                  <br />
-                  {author.website}
-                  <br />
-                  {author.company.name} |
-                  {author.company.catchPhrase} |
-                  {author.company.bs}
-                </ListItem>
-              ))}
+              <ListItem>
+                <strong>{this.state.author.name}</strong>
+                <br />
+                {this.state.author.username}
+                <br />
+                {this.state.author.email}
+                <br />
+                {this.state.author.address.street}
+                <br />
+                {this.state.author.address.suite}
+                <br />
+                {this.state.author.address.city} |
+                {this.state.author.address.zipcode}
+                <GoogleMap
+                  defaultZoom={8}
+                  defaultCenter={{
+                    lat: this.state.author.address.geo.lat,
+                    lng: this.state.author.address.geo.lng
+                  }}
+                >
+                  <Marker
+                    position={{
+                      lat: this.state.author.address.geo.lat,
+                      lng: this.state.author.address.geo.lng
+                    }}
+                  />
+                </GoogleMap>
+                <br />
+                {this.state.author.phone}
+                <br />
+                {this.state.author.website}
+                <br />
+                {this.state.author.company.name} |
+                {this.state.author.company.catchPhrase} |
+                {this.state.author.company.bs}
+              </ListItem>
             </List>
           ) : (
-            <h3>authors Loading or no new authors</h3>
+            <h3>Author does not exist.</h3>
           )}
         </Col>
       </Container>
@@ -82,4 +91,14 @@ class Author extends Component {
   }
 }
 
-export default Author;
+export default compose(
+  withProps({
+    googleMapURL:
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyDH-x4BSPWpRzYjUEpubsuDp1LioaiZp-4&v=3.exp&libraries=geometry,drawing,places",
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `400px` }} />,
+    mapElement: <div style={{ height: `100%` }} />
+  }),
+  withScriptjs,
+  withGoogleMap
+)(Author);

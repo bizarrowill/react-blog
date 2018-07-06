@@ -10,8 +10,8 @@ export default {
     return axios.get("https://jsonplaceholder.typicode.com/posts/" + id);
   },
   // Gets the author with the given id
-  getAuthors: function() {
-    return axios.get("https://jsonplaceholder.typicode.com/users/");
+  getAuthor: function(id) {
+    return axios.get("https://jsonplaceholder.typicode.com/users/" + id);
   },
 
   // Gets comments
