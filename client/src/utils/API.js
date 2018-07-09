@@ -19,6 +19,14 @@ export default {
     return axios.get("https://jsonplaceholder.typicode.com/comments");
   },
 
+  // New comment
+  postComment: function(postComment) {
+    return axios.post(
+      "https://jsonplaceholder.typicode.com/comments",
+      postComment
+    );
+  },
+
   // Gets photos
   getPhotos: function() {
     return axios.get("https://jsonplaceholder.typicode.com/photos");

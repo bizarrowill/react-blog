@@ -16,6 +16,12 @@ class Home extends Component {
     this.loadPhotos();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.newPost) {
+      this.props.posts.unshift(nextProps.newPost);
+    }
+  }
+
   loadPosts = () => {
     API.getPosts()
       .then(res => this.setState({ posts: res.data }))

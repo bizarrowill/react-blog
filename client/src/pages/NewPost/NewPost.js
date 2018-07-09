@@ -61,7 +61,9 @@ class NewPost extends Component {
               <br />
             </div>
             <br />
-            <button type="submit">Submit</button>
+            <Link to={"/"}>
+              <button type="submit">Submit</button>
+            </Link>
           </form>
         </div>
         <br />

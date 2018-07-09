@@ -7,10 +7,15 @@ export default class Comments extends Component {
   state = {
     comments: []
   };
-  // When this component mounts, grab the comments with the id of this.props.match.params.Postid
-  // e.g. localhost:3000/comments/1
+
   componentDidMount() {
     this.loadComments();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.newComment) {
+      this.props.comments.unshift(nextProps.newComment);
+    }
   }
 
   loadComments = () => {
@@ -32,7 +37,7 @@ export default class Comments extends Component {
                 ))}
             </List>
           ) : (
-            <h3>No Results to Display</h3>
+            <h3>No comments to display</h3>
           )}
         </Col>
       </Container>

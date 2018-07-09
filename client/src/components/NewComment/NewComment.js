@@ -23,6 +23,11 @@ class NewComment extends Component {
     const comment = {
       body: this.state.body
     };
+    newComment = () => {
+      API.postComment(comment)
+        .then(res => this.setState({ comment: res.data }))
+        .catch(err => console.log(err));
+    };
   }
 
   render() {

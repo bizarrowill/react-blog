@@ -38,9 +38,32 @@ class Author extends Component {
     return (
       <Container fluid>
         <Row>
-          <Jumbotron>
-            <h1>Author Page</h1>
-          </Jumbotron>
+          {Object.keys(this.state.author).length > 0 ? (
+            <List>
+              <ListItem>
+                <GoogleMap
+                  defaultZoom={3}
+                  defaultCenter={{
+                    lat: -37.3159,
+                    lng: 81.1496
+                  }}
+                >
+                  <Marker
+                    position={{
+                      lat: -37.3159,
+                      lng: 81.1496
+                    }}
+                  />
+                </GoogleMap>
+                LAT {this.state.author.address.geo.lat} | LONG{" "}
+                {this.state.author.address.geo.lng}
+              </ListItem>
+            </List>
+          ) : (
+            <h3>Author location does not exist.</h3>
+          )}
+
+          <h1>Author Page</h1>
         </Row>
         <Col size="sm-12">
           {Object.keys(this.state.author).length > 0 ? (
@@ -57,21 +80,9 @@ class Author extends Component {
                 {this.state.author.address.suite}
                 <br />
                 {this.state.author.address.city} |
-                {this.state.author.address.zipcode}
-                <GoogleMap
-                  defaultZoom={8}
-                  defaultCenter={{
-                    lat: this.state.author.address.geo.lat,
-                    lng: this.state.author.address.geo.lng
-                  }}
-                >
-                  <Marker
-                    position={{
-                      lat: this.state.author.address.geo.lat,
-                      lng: this.state.author.address.geo.lng
-                    }}
-                  />
-                </GoogleMap>
+                {this.state.author.address.zipcode} |
+                {this.state.author.address.geo.lat} |
+                {this.state.author.address.geo.lng} |
                 <br />
                 {this.state.author.phone}
                 <br />

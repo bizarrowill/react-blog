@@ -8,11 +8,12 @@ import API from "../../utils/API";
 class Preview extends Component {
   state = {
     post: {},
-    author: null
+    photos: {}
   };
   // When this component mounts, grab the post with the id of this.props.match.params.id
   // e.g. localhost:3000/posts/1
   componentDidMount() {
+    this.loadPhotos();
     API.getPost(this.props.match.params.id)
       .then(post => {
         console.log(post);
@@ -22,6 +23,14 @@ class Preview extends Component {
       })
       .catch(err => console.log(err));
   }
+
+  loadPhotos = () => {
+    API.getPhotos()
+      .then(res => {
+        this.setState({ photos: res.data });
+      })
+      .catch(err => console.log(err));
+  };
 
   render() {
     console.log("preview state:", this.state);
@@ -44,6 +53,7 @@ class Preview extends Component {
           <Col size="md-10 md-offset-1">
             <article>
               <h1>Content</h1>
+              {this.state.photos[0] && <img src={this.state.photos[0].url} />}
               <p>{this.state.post.body}</p>
             </article>
           </Col>
