@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { compose, withProps } from "recompose";
 import { Col, Row, Container } from "../../components/Grid";
-import Jumbotron from "../../components/Jumbotron";
-// import { Map } from "../../components/Map";
 import API from "../../utils/API";
 import { List, ListItem } from "../../components/List";
 import {
@@ -24,7 +22,6 @@ class Author extends Component {
   }
 
   loadAuthor = () => {
-    console.log("author id:", this.props.match.params.id);
     API.getAuthor(this.props.match.params.id)
       .then(res =>
         this.setState({

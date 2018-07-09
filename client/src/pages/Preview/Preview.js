@@ -16,7 +16,6 @@ class Preview extends Component {
     this.loadPhotos();
     API.getPost(this.props.match.params.id)
       .then(post => {
-        console.log(post);
         API.getAuthor(post.data.userId).then(author => {
           this.setState({ post: post.data, author: author.data.name });
         });
@@ -33,7 +32,6 @@ class Preview extends Component {
   };
 
   render() {
-    console.log("preview state:", this.state);
     return (
       <Container fluid>
         <Row>
@@ -53,7 +51,9 @@ class Preview extends Component {
           <Col size="md-10 md-offset-1">
             <article>
               <h1>Content</h1>
-              {this.state.photos[0] && <img src={this.state.photos[0].url} />}
+              {this.state.photos[0] && (
+                <img src={this.state.photos[0].url} alt="" />
+              )}
               <p>{this.state.post.body}</p>
             </article>
           </Col>
