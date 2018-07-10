@@ -59,25 +59,6 @@ class Preview extends Component {
           </Col>
         </Row>
         <Comments />
-        <div>
-          <h1>Add Comment</h1>
-          <form onSubmit={this.onSubmit}>
-            <br />
-            <div>
-              <label>Comment: </label>
-              <br />
-              <input
-                type="text"
-                name="body"
-                onChange={this.onChange}
-                value={this.state.body}
-              />
-              <br />
-            </div>
-            <br />
-            <button type="submit">Submit</button>
-          </form>
-        </div>
         <br />
         <Row>
           <Col size="md-2">
